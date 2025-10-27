@@ -1,4 +1,5 @@
-@import '../../styles/variables.scss';
+@use '../../styles/index.scss' as *;
+@use "sass:color";
 
 $navbar-height: 40px;
 
@@ -44,7 +45,7 @@ nav {
   border-radius: 10px;
   text-decoration: none;
   &:active {
-    background-color: darken($primary-color, 10%);
+    background-color: color.adjust($primary-color, $lightness: -10%);
   }
   grid-area: home-button;
 }
