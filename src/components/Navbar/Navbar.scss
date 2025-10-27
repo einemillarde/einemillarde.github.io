@@ -1,0 +1,50 @@
+@import '../../styles/variables.scss';
+
+$navbar-height: 40px;
+
+nav {
+  display: grid;
+  grid-template-columns: 80px auto 400px auto 60px;
+  grid-template-areas: "home-button space0 search-bar space1 gh-repo-lnk";
+  height: $navbar-height;
+  margin: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid $primary-light;
+}
+
+#search-bar {
+  grid-area: search-bar;
+  background-color: $primary-light;
+  outline: none;
+  border: 0;
+  border-radius: 100px;
+  font-size: 15px;
+  padding: 0 20px 0 40px;
+}
+
+#gh-repo-lnk {
+  grid-area: gh-repo-lnk;
+  display: flex;
+  align-items: center;
+  img {
+    &:hover {
+      cursor: pointer;
+    }
+    height: $navbar-height;
+  }
+}
+
+#home-button {
+  color: $primary-light;
+  font-weight: bold;
+  background-color: $primary-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  text-decoration: none;
+  &:active {
+    background-color: darken($primary-color, 10%);
+  }
+  grid-area: home-button;
+}
