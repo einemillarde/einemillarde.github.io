@@ -1,7 +1,8 @@
-import Home from './pages/home/Home.tsx'
-import StringArt from './pages/string-art/StringArt.tsx'
-import Navbar from './components/Navbar/Navbar.tsx'
+import Home from './pages/Home'
+import StringArt from './pages/StringArt'
+import Navbar from './components/Navbar'
 import { Routes, Route } from "react-router-dom"
+import './styles/App.scss'
 
 function App() {
   return (

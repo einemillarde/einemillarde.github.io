@@ -1,0 +1,43 @@
+@use '../index.scss' as *;
+
+.tile-a {
+  aspect-ratio: 2/1;
+  display: block;
+  background-size: cover;
+  background-position: center;
+  color: $primary-light;
+  position: relative;
+  overflow: hidden;
+  >.title {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+    background-color: #0008;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  >.desc {
+    padding: 20px;
+    background-color: #0008;
+    transform: translateY(100%);
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 67px;
+    transition: transform 333ms ease-in-out, opacity 333ms linear;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+  display: flex;
+  flex-direction: column;
+  &:hover {
+    text-decoration: none;
+    .desc {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

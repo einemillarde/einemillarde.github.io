@@ -1,0 +1,31 @@
+@use 'index.scss' as *;
+
+body {
+  margin: 0;
+}
+
+#root {
+  background-color: $bg-color;
+  color: $primary-light;
+  font-family: system-ui;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  >main {
+    margin-left: 15px;
+    overflow-y: scroll;
+  }
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1, h2, h3 {
+  text-align: center;
+}

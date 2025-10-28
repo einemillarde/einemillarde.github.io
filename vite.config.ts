@@ -5,5 +5,5 @@ import svgr from 'vite-plugin-svgr';
 // https://vite.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [react(), svgr()],
+  plugins: [react(), svgr()]
 })
