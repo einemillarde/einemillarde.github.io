@@ -5,27 +5,30 @@ body {
 }
 
 #root {
-  background-color: $bg-color;
-  color: $primary-light;
+  background-color: $bg;
+  color: $primary-text;
   font-family: system-ui;
 
   display: grid;
   grid-template-rows: auto 1fr;
   height: 100vh;
   >main {
-    margin-left: 15px;
+    margin: 0 15px 0px 15px;
     overflow-y: scroll;
+    h1 {
+      text-align: center;
+    }
   }
-}
-
-a {
-  color: $link-color;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
+  input {
+    background-color: $element-bg;
+    border: 0;
+    outline: 0;
+    border-radius: $border-radius;
+    color: $primary-text;
   }
-}
-
-h1, h2, h3 {
-  text-align: center;
+  >.navbar {
+    >input {
+      border-radius: 100px;
+    }
+  }
 }

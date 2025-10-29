@@ -9,7 +9,7 @@ interface TileProps {
 
 export default function Tile(props: TileProps) {
   return (
-    <a href={props.href} className='tile-a' style={{ backgroundImage: `url("${props.src}")` }}>
+    <a href={props.href} className='tile' style={{ backgroundImage: `url("${props.src}")` }}>
       <div className='title'>{props.title}</div>
       <div className='desc'>{props.desc}</div>
     </a>
