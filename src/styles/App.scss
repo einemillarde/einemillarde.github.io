@@ -19,16 +19,70 @@ body {
       text-align: center;
     }
   }
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: $element-bg;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: $element-bg2;
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: $element-bg;
+  }
+  * {
+    scrollbar-width: 12px;
+    scrollbar-color: $element-bg2 $element-bg;
+  }
   input {
     background-color: $element-bg;
     border: 0;
     outline: 0;
-    border-radius: $border-radius;
-    color: $primary-text;
+    &[type='text'] {
+      border-radius: $border-radius;
+      color: $primary-text;
+      padding: 10px;
+    }
+    &[type='range'] {
+        appearance: none;
+        border-radius: 5px;
+        height: 10px;
+      &::-moz-range-thumb {
+        background-color: $primary;
+        border: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 10px;
+      }
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        background-color: $primary;
+        border: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 10px;
+      }
+    }
+    &[type='checkbox'] {
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background-color: $element-bg;
+      &:checked {
+        background-color: $primary;
+        mask-image: url('../assets/checkmark.svg');
+        mask-position: center;
+        mask-size: 100%;
+      }
+    }
   }
   >.navbar {
     >input {
       border-radius: 100px;
+      padding: 0 20px 0 40px;
     }
   }
 }
