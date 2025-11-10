@@ -17,35 +17,25 @@ $navbar-height: 40px;
     max-width: 400px;
   }
   >.contribute {
+    @include primary-button;
     display: flex;
     align-items: center;
-    color: $primary-text;
     text-decoration: none;
     background-color: $element-bg;
-    padding: 10px;
     gap: 10px;
-    border-radius: $border-radius;
     font-size: 14px;
     img {
-      &:hover {
-        cursor: pointer;
-      }
       height: $navbar-height - 20px;
     }
   }
   .home-btn {
+    @include primary-button;
     flex-grow: 1;
     font-weight: bold;
-    background-color: $primary;
-    color: $primary-text;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: $border-radius;
     text-decoration: none;
-    &:active {
-      background-color: color.adjust($primary, $lightness: -10%);
-    }
-    max-width: 80px;
+    max-width: 65px;
   }
 }

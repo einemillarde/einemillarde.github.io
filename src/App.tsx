@@ -4,16 +4,14 @@ import Navbar from './components/Navbar'
 import { Routes, Route } from "react-router-dom"
 import './styles/App.scss'
 
-function App() {
+export default function App() {
   return (
     <>
-    <Navbar />
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/string-art' element={<StringArt />} />
-    </Routes>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/string-art' element={<StringArt />} />
+      </Routes>
     </>
   )
 }
-
-export default App

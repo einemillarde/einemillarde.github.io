@@ -15,6 +15,9 @@
       gap: 20px;
       height: fit-content;
       grid-template-columns: auto auto auto;
+      grid-template-areas:
+        'labels inputs reset-buttons'
+        'generate-button generate-button reset-buttons';
       >div {
         display: grid;
         grid-auto-rows: 90px;
@@ -27,8 +30,19 @@
           mask-position: center;
           mask-repeat: no-repeat;
           mask-size: 100%;
-          cursor: pointer;
         }
+      }
+      >.labels {
+        grid-area: labels;
+      }
+      >.inputs {
+        grid-area: inputs;
+      }
+      >.reset-buttons {
+        grid-area: reset-buttons;
+      }
+      >button {
+        grid-area: generate-button;
       }
     }
     >canvas {
