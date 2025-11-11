@@ -2,7 +2,7 @@ function getError(current: Uint8ClampedArray, target: Uint8ClampedArray) {
   let error = 0;
   for (let i = 0; i < current.length; i += 4) {
     const diff = current[i] - target[i];
-    error += diff * diff;
+    error += Math.abs(diff / 255);
   }
   return error;
 }
@@ -16,15 +16,15 @@ function drawLine(ctx: OffscreenCanvasRenderingContext2D, from: number, to: numb
   ctx.stroke();
 }
 
-self.onmessage = async (event: MessageEvent<{ numLines: number, numNails: number, imageFile: File, radius: number, threadWeight: number, reverseContrast: boolean }>) => {
-  const { numLines, numNails, imageFile, radius, threadWeight, reverseContrast } = event.data;
+self.onmessage = async (event: MessageEvent<{ numNails: number, imageFile: File, radius: number, threadWeight: number, reverseContrast: boolean }>) => {
+  console.time();
+
+  const { numNails, imageFile, radius, threadWeight, reverseContrast } = event.data;
 
   const nails = Array.from({ length: numNails }, (_, i) => {
     const angle = (i / numNails) * 2 * Math.PI;
     return [radius + radius * Math.cos(angle), radius + radius * Math.sin(angle)];
   });
-
-  console.log(nails);
 
   const bitmap = await createImageBitmap(imageFile);
 
@@ -33,19 +33,21 @@ self.onmessage = async (event: MessageEvent<{ numLines: number, numNails: number
   canvas.height = radius * 2;
   const ctx = canvas.getContext('2d');
   if (!ctx) {
-    self.postMessage({ error: 'Could not get OffscreenCanvasRenderingContext2D' });
+    self.postMessage({ error: 'no context' });
     return;
   }
   ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
 
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   ctx.beginPath();
   ctx.arc(radius, radius, radius, 0, 2 * Math.PI);
   ctx.fillStyle = reverseContrast ? 'black' : 'white';
   ctx.fill();
 
-  ctx.lineWidth = threadWeight;
+  ctx.lineWidth = threadWeight * radius / 512;
   ctx.strokeStyle = reverseContrast ? 'white' : 'black';
 
   for (let i = 0; i < imageData.length; i += 4) {
@@ -60,16 +62,20 @@ self.onmessage = async (event: MessageEvent<{ numLines: number, numNails: number
 
   const lines: number[] = [0];
 
-  for (let i = 1; i < numLines; i++) {
+  let prevError: number;
+  let error = Infinity;
+
+  do {
+    prevError = error;
     const prevCanvasState = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let bestError = Infinity;
     let bestNail = -1;
     for (let j = 0; j < numNails; j++) {
       if (j === lines[lines.length - 1] || j === lines[lines.length - 2]) continue;
       drawLine(ctx, lines[lines.length - 1], j, nails);
-      const error = getError(ctx.getImageData(0, 0, canvas.width, canvas.height).data, imageData);
-      if (error < bestError) {
-        bestError = error;
+      const error0 = getError(ctx.getImageData(0, 0, canvas.width, canvas.height).data, imageData);
+      if (error0 < bestError) {
+        bestError = error0;
         bestNail = j;
       }
       ctx.putImageData(prevCanvasState, 0, 0);
@@ -77,9 +83,13 @@ self.onmessage = async (event: MessageEvent<{ numLines: number, numNails: number
     if (bestNail !== -1) {
       drawLine(ctx, lines[lines.length - 1], bestNail, nails);
       lines.push(bestNail);
-    } else console.log('no best nail found');
-    if (i % 10 === 0) self.postMessage({ progress: i / numLines, newLines: lines.slice(i - 10, i === numLines - 1 ? i + 1 : i) });
-  }
+      error = bestError;
+    }
+  } while (error < prevError);
 
-  self.postMessage({ done: true, lines: lines });
+  console.log(`error: ${error}\nnum lines: ${lines.length - 1}`);
+  self.postMessage({ imgData: ctx.getImageData(0, 0, canvas.width, canvas.height) });
+
+  console.timeEnd();
+  console.timeLog();
 };

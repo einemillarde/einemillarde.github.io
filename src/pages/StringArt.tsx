@@ -5,7 +5,7 @@ import ImageInput from '../components/ImageInput';
 export default function StringArt() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const initialNumNails = 80;
+  const initialNumNails = 120;
   const initialThreadWeight = 1;
   const initialReverseContrast = false;
 
@@ -24,9 +24,15 @@ export default function StringArt() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      console.error('no canvas')
+      return;
+    }
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx) {
+      console.error('no context')
+      return;
+    }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'white';
@@ -55,49 +61,35 @@ export default function StringArt() {
     const worker = new Worker(new URL('../utils/stringArtWorker.ts', import.meta.url), { type: 'module' });
 
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      console.error('no canvas')
+      return;
+    }
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx) {
+      console.error('no context')
+      return;
+    }
 
-    const radius = canvas.width / 2;
-
-    ctx.beginPath();
-    ctx.arc(radius, radius, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = reverseContrast ? 'black' : 'white';
-    ctx.fill();
-
-    ctx.lineWidth = threadWeight * radius / 512;
-    ctx.strokeStyle = reverseContrast ? 'white' : 'black';
-
-    const nails = Array.from({ length: numNails }, (_, i) => {
-      const angle = (i / numNails) * 2 * Math.PI;
-      return [radius + radius * Math.cos(angle), radius + radius * Math.sin(angle)];
-    });
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillText('Generating...', canvas.width / 2, canvas.height / 2);
 
     worker.postMessage({
-      numLines: 1500,
       numNails: numNails,
       imageFile: imageFile,
-      radius: radius,
+      radius: canvas.width / 2,
       threadWeight: threadWeight,
       reverseContrast: reverseContrast
     });
 
     worker.onmessage = (event) => {
-      const { progress: progress, newLines: newLines, done: done } = event.data;
-      if (newLines) {
-        ctx.beginPath();
-        for (const line of newLines) {
-          const [x, y] = nails[line];
-          ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-        console.log('lines successfully drawn', newLines);
-      } else console.log('no new lines', newLines)
-      if (progress) console.log(progress);
-      if (done) {
-        console.log('String art complete');
-        worker.terminate();
+      const { imgData: imgData } = event.data;
+      if (imgData) {
+        ctx.putImageData(imgData, 0, 0);
+        const audio = new Audio('../assets/alarm-sound.mp3');
+        audio.play();
       }
     }
   }
@@ -138,7 +130,7 @@ export default function StringArt() {
           </div>
           <button onClick={() => generateStringArt()}>Generate</button>
         </div>
-        <canvas ref={canvasRef} width={700} height={700} />
+        <canvas ref={canvasRef} width={512} height={512} />
       </div>
     </main>
   );
