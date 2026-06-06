@@ -1,41 +1,43 @@
 @use '../index.scss' as *;
 @use "sass:color";
 
-$navbar-height: 40px;
+$navbar-height: 35px;
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  height: $navbar-height;
-  margin: 15px 15px 0 15px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #fff;
-  >input {
-    margin: 0 20px 0 20px;
-    flex-grow: 1;
-    font-size: 15px;
-    max-width: 400px;
-  }
-  >.contribute {
-    @include primary-button;
     display: flex;
-    align-items: center;
-    text-decoration: none;
-    background-color: $element-bg;
-    gap: 10px;
-    font-size: 14px;
-    img {
-      height: $navbar-height - 20px;
+    justify-content: space-between;
+    height: $navbar-height;
+    padding: 10px;
+    border-bottom: 2px solid grey;
+    >input {
+        margin: 0 20px 0 20px;
+        flex-grow: 1;
+        font-size: 15px;
+        max-width: 400px;
     }
-  }
-  .home-btn {
-    @include primary-button;
-    flex-grow: 1;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    max-width: 65px;
-  }
+    >.contribute {
+        @include primary-button;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        background-color: $element-bg;
+        gap: 10px;
+        font-size: 14px;
+        &:active {
+            background-color: color.adjust($element-bg, $lightness: 10%);
+        }
+        img {
+            height: $navbar-height - 20px;
+        }
+    }
+    .home-btn {
+        @include primary-button;
+        flex-grow: 1;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        max-width: 65px;
+    }
 }

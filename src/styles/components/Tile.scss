@@ -1,41 +1,42 @@
 @use '../index.scss' as *;
 
 .tile {
-  aspect-ratio: 16/9;
-  display: block;
-  background-size: cover;
-  background-position: center;
-  color: $primary-text;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  >.title {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 20px;
-    background-color: $element-bg;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    display: block;
     color: $primary-text;
-  }
-  >.desc {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    text-decoration: none;
     padding: 20px;
-    background-color: $element-bg;
-    transform: translateY(100%);
-    opacity: 0;
-    flex-grow: 1;
-    transition: transform 333ms ease-in-out, opacity 333ms linear;
-    will-change: transform, opacity;
-    pointer-events: none;
-    color: $dull-text;
-  }
-  &:hover {
-    .desc {
-      transform: translateY(0);
-      opacity: 1;
+    height: 100%;
+    box-sizing: border-box;
+    >.image {
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        aspect-ratio: 1;
     }
-  }
+    >.title {
+        font-size: 20px;
+        font-weight: bold;
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: $primary-text;
+    }
+    >.desc {
+        color: $dull-text;
+        height: 3lh;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    >.tags {
+        margin-top: auto;
+        height: fit-content;
+    }
+    &:hover {
+        box-shadow: 0 0 10px black;
+    }
 }

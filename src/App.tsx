@@ -1,17 +1,17 @@
 import Home from './pages/Home'
-import StringArt from './pages/StringArt'
+import Chess from './pages/Chess'
 import Navbar from './components/Navbar'
 import { Routes, Route } from "react-router-dom"
 import './styles/App.scss'
 
 export default function App() {
-  return (
-    <>
-      <Navbar />
-      <Routes>
+    return (
+        <>
+        <Navbar />
+        <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/string-art' element={<StringArt />} />
-      </Routes>
-    </>
-  )
+        <Route path='/chess-game' element={<Chess />} />
+        </Routes>
+        </>
+    )
 }

@@ -1,7 +1,8 @@
 .home {
-  >div {
-    display: grid;
-    gap: 40px;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  }
+    >div {
+        display: grid;
+        gap: 40px;
+        padding: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
 }
