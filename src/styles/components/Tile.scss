@@ -13,7 +13,7 @@
     height: 100%;
     box-sizing: border-box;
     >.image {
-        background-size: contain;
+        background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         aspect-ratio: 1;
@@ -38,5 +38,6 @@
     }
     &:hover {
         box-shadow: 0 0 10px black;
+        text-decoration: none !important;
     }
 }

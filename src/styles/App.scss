@@ -8,13 +8,19 @@ body {
     background-color: $bg;
     color: $primary-text;
     font-family: system-ui;
-
     display: grid;
     grid-template-rows: auto 1fr;
     height: 100vh;
     >main {
-        padding: 0 15px 0px 15px;
+        padding: 0 50px 50px 50px;
         overflow-y: scroll;
+        a {
+            text-decoration: none;
+            color: #4b98eb;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
     h1 {
         text-align: center;
@@ -89,6 +95,23 @@ body {
         >input {
             border-radius: 100px;
             padding: 0 20px 0 40px;
+        }
+    }
+    .download-btn {
+        @include primary-button;
+        img {
+            width: 30px;
+        }
+        color: white;
+        display: flex;
+        width: fit-content;
+        margin: 50px 0;
+        align-items: center;
+        column-gap: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        &:hover {
+            text-decoration: none;
         }
     }
 }

@@ -1,0 +1,26 @@
+@use '../index.scss' as *;
+
+.image-gallery {
+    width: min(1500px, 100% - 300px); 
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: 
+        "hero top"
+        "hero bottom"
+    ;
+    >img {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    #img1 { grid-area: hero; }
+    #img2 { grid-area: top; }
+    #img3 { grid-area: bottom; }
+    outline: 2px solid gray;
+    gap: 2px;
+    background-color: gray;
+}
+

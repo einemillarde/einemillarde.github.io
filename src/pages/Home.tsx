@@ -1,6 +1,8 @@
 import Tag from '../components/Tag'
 import Tile from '../components/Tile'
 import '../styles/pages/Home.scss'
+import ChessImage from '../assets/Chess/game-img-1.png'
+import RacingImage from '../assets/Racing Game/screenshot.png'
 
 export default function Home() {
     return (
@@ -8,12 +10,21 @@ export default function Home() {
         <h1>Projects</h1>
         <div>
         <Tile
-        src='https://github.com/user-attachments/assets/78dc619e-0c06-4c03-80a5-9bb4716eb1d0'
+        src={ChessImage}
         title='Chess Game'
         href='/chess-game'
         desc='Chess game inspired by chess.com made in pygame.'
         tags={[
             <Tag name='python' color='#306998' />,
+        ]}
+        />
+        <Tile
+        src={RacingImage}
+        title='Racing Game'
+        href='/racing-game'
+        desc='Racing game with custom trained AI.'
+        tags={[
+            <Tag name='Godot' color='#478cbf' />,
         ]}
         />
         </div>
