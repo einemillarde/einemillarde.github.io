@@ -1,7 +1,7 @@
 @use '../index.scss' as *;
 @use "sass:color";
 
-$navbar-height: 35px;
+$navbar-height: 38px;
 
 .navbar {
     display: flex;
@@ -28,6 +28,7 @@ $navbar-height: 35px;
         }
         img {
             height: $navbar-height - 20px;
+            width: auto;
         }
     }
     .home-btn {
